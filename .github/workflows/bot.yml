@@ -1,0 +1,27 @@
+name: Aternos 24/7 Bot
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *' # Har 5 minute me check karega aur restart rakhega
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Bot
+        run: node bot.js
+        continue-on-error: true
+        
